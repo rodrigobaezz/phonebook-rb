@@ -162,7 +162,7 @@ class Phonebook extends Component {
               { contactList }
             </div>
 
-            <div>
+            <div className="col-md-6">
               <ul>
                 <li>Use the "+" cta to add a new contact</li>
                 <li>You can search by name, last name & phonenumber</li>
