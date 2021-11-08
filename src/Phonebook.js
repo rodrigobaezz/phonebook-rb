@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import get from 'lodash-es/get';
 import './Phonebook.css';
 
 class Phonebook extends Component {
@@ -12,10 +11,11 @@ class Phonebook extends Component {
       lastName: '',
       phoneNumber: '',
       searchQuery: '',
+      contactData: [],
+      phoneBook: [],
       emptyPhonebook: true,
       showForm: false,
-      contactData: [],
-      phoneBook: []
+      formError: false
     } 
 
     // Hides/Shows the add contact form
@@ -27,9 +27,10 @@ class Phonebook extends Component {
 
     // Manages the contact fields values and sets states
     this.onInputChange = (e) => {
-      this.setState(
-        { [e.target.name]: e.target.value}
-      );
+      this.setState({ 
+        [e.target.name]: e.target.value,
+        formError: false
+      });
     }
 
     // Creates a new contact using the contact field values
@@ -41,20 +42,27 @@ class Phonebook extends Component {
         name: this.state.name,
         lastName: this.state.lastName,
         phoneNumber: this.state.phoneNumber,
-        contactSearch: this.state.name.replace(/\s/g, '_') + '_' + this.state.lastName.replace(/\s/g, '_') + '_' + this.state.phoneNumber.replace(/\s/g, '_')
+        contactSearch: this.state.name.replace(/\s/g, '_').toLowerCase() + '_' + this.state.lastName.replace(/\s/g, '_').toLowerCase() + '_' + this.state.phoneNumber.replace(/\s/g, '_').toLowerCase()
       }
       
-      // Adds new contact data to the contactData array
-      // Adds new contact data to the phoneBook array
-      this.setState((prevState) => ({
-        contactData: prevState.contactData.concat(newContact),
-        phoneBook: prevState.contactData.concat(newContact),
-        name: '',
-        lastName: '',
-        phoneNumber: '',
-        emptyPhonebook: false,
-        showForm: false,
-      }));
+      if (newContact.name && newContact.phoneNumber) {
+        // Adds new contact data to the contactData array
+        // Adds new contact data to the phoneBook array
+        this.setState((prevState) => ({
+          contactData: prevState.contactData.concat(newContact),
+          phoneBook: prevState.contactData.concat(newContact),
+          name: '',
+          lastName: '',
+          phoneNumber: '',
+          emptyPhonebook: false,
+          showForm: false,
+          formError: false
+        }));
+      } else {
+        this.setState(
+          { formError: true }
+        );
+      }
 
       this.setState(
         { [e.target.name]: e.target.value }
@@ -102,7 +110,6 @@ class Phonebook extends Component {
             )}
           </ul>
         }
-
       </div> 
     );
 
@@ -111,7 +118,7 @@ class Phonebook extends Component {
         <div className="phonebook-form">
           <form className="form" id="addContactForm">
             <div className="form-group">
-              <input name="name" type="text" className="form-control" placeholder="Name" onChange={this.onInputChange} value={this.state.name}/>
+              <input name="name" type="text" className={ this.state.formError ? 'form-control form-control--error' : 'form-control' } placeholder="Name" onChange={this.onInputChange} value={this.state.name}/>
             </div>
 
             <div className="form-group">
@@ -119,7 +126,7 @@ class Phonebook extends Component {
             </div>
 
             <div className="form-group">
-              <input name="phoneNumber" type="text" className="form-control" placeholder="Phone Number" onChange={this.onInputChange} value={this.state.phoneNumber}/>
+              <input name="phoneNumber" type="text" className={ this.state.formError ? 'form-control form-control--error' : 'form-control' } placeholder="Phone Number" onChange={this.onInputChange} value={this.state.phoneNumber}/>
             </div>
 
             <div className="form-group form-group--phonebook-footer">
@@ -127,6 +134,8 @@ class Phonebook extends Component {
               <button type="button" className="btn btn-primary" onClick={this.toggleAddContact}>Cancel</button>
             </div>
           </form>
+
+          {this.state.formError ? <p className="phonebook-form__error">Please fill required fields</p> : ''}
         </div>
       );
     }
@@ -156,7 +165,7 @@ class Phonebook extends Component {
             <div>
               <ul>
                 <li>Use the "+" cta to add a new contact</li>
-                <li>You can search by name, lastname & phonenumber</li>
+                <li>You can search by name, last name & phonenumber</li>
               </ul>
             </div>
           </div>

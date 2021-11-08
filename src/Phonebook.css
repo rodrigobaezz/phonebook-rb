@@ -11,7 +11,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 0 10px;
+  padding: 15px 0 20px;
+  border-bottom: solid 1px grey;
+  margin-bottom: 20px;
 }
 
 .phonebook-add {
@@ -64,10 +66,20 @@ input.form-control {
   outline: none;
 }
 
+
+input.form-control.form-control--error {
+  border: solid 2px red;
+}
+
+.phonebook-form__error {
+  color: red;
+}
+
 .btn-primary {
   background-color: transparent;
   border: solid 2px white;
   border-radius: 15px;
+  box-shadow: none;
 }
 
 .phonebook-add:hover,
