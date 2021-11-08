@@ -1,25 +1,84 @@
-.header {
+.phonebook {
+  padding: 60px 0;
+}
+
+.phonebook-inner-container {
+  background-color: black;
+  color: white
+}
+
+.phonebook-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0 10px;
+}
+
+.phonebook-add {
+  border: solid 2px white;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
   text-align: center;
-  font-family: cursive;
-    text-shadow: 2px 2px 2px  #ff80bf
-    
+  font-size: 25px;
+  cursor: pointer;
 }
 
-.form{
-   
-    box-shadow: 2px 2px 3px 3px  #ccc;
-    border: 2px  #eee;
-    padding:20px;
-    margin-top: 20px;  
+.phonebook-search input {
+  width: 100%;
 }
 
-.contacts{
-    margin-top: 20px
+.phonebook-form {
+  padding: 30px 0;
 }
 
-.App{
-    margin-top: 10%;
-    box-shadow: 2px 2px 3px 3px  #ccc;
-    border: 2px  #eee;
-    padding:20px;
+.phonebook-contacts {
+  min-height: 300px;
+  padding: 30px 0;
+}
+
+.phonebook-contacts ul {
+  list-style: none;
+  padding: 0;
+}
+
+.phonebook-contacts ul li.contact {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: solid 1px gray;
+  margin: 0 15px;
+}
+
+.phonebook-contacts ul li.contact:first-child {
+  border-top: solid 1px gray;
+}
+
+.phonebook-contacts ul li.empty {
+  text-align: center;
+}  
+
+input.form-control {
+  outline: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: transparent;
+  border: solid 2px white;
+  border-radius: 15px;
+}
+
+.phonebook-add:hover,
+.btn-primary:hover {
+  background-color: white;
+  color: black;
+  border-color: white;
+  transition: all 200ms ease-in-out;
+}
+
+.form-group--phonebook-footer {
+  display: flex;
+  justify-content: space-between;
 }
